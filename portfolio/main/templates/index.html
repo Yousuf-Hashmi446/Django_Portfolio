@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <ul>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#education">EDUCATION</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#experience">EXPERIENCE</a></li>
+                <li><a href="#products">PRODUCTS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="main">
+            <div class="info">
+                <h3>Hi, I'm <span>{{ header.name }}</span>.</h3>
+                <h1><span>{{ header.designation }}</span></h1>
+                <h3>{{ header.title_line }}</h3>
+
+                <a href="https://www.linkedin.com/in/yousuf-hashmi-41560022a/">Hire Me</a>
+            </div>
+            <div class="image">
+                <img src="{% static 'main/pic/WhatsApp_Image_2023-06-25_at_11.11.38_PM-removebg-preview.png' %}"
+                    class="boy">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-section">
+            <h2>About Me</h2>
+            <p>{{ about_me }}</p>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="education-section">
+            <h2>Education</h2>
+            <ul>
+                {% for edu in education %}
+                <li><b>{{ edu.degree }}</b><br>{{ edu.institution }} <br>{{ edu.year }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="skills-section">
+            <h2>Skills</h2>
+            <ul>
+                {% for skill in skills %}
+                <li><b>{{ skill.title }}:</b> {{ skill.description }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="products-section">
+            <h2>Products</h2>
+            <ul>
+                {% for project in projects %}
+                <li><b>{{ project.title }}</b><br>{{ project.description }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-section">
+            <h2>Contact Me</h2>
+            <form action="/submit-contact-form/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
